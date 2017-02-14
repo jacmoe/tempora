@@ -1,0 +1,13 @@
+*.o
+*.ppu
+*.lps
+*.lrt
+*.res
+lib/*
+/tempora
+backup/*
+units/backup/*
+forms/backup/*
+*.ini
+*.dbg
+*.log
