@@ -1,0 +1,172 @@
+object MainForm: TMainForm
+  Left = 414
+  Height = 523
+  Top = 169
+  Width = 879
+  Caption = 'Tempora'
+  ClientHeight = 517
+  ClientWidth = 879
+  Menu = MainMenu1
+  LCLVersion = '1.7'
+  object PageControl1: TPageControl
+    Left = 0
+    Height = 517
+    Top = 0
+    Width = 879
+    ActivePage = TabSheetPomodoro
+    Align = alClient
+    TabIndex = 3
+    TabOrder = 0
+    object TabSheetCollect: TTabSheet
+      Caption = 'Collect'
+    end
+    object TabSheetOrganize: TTabSheet
+      Caption = 'Organize'
+    end
+    object TabSheetProcess: TTabSheet
+      Caption = 'Process'
+    end
+    object TabSheetPomodoro: TTabSheet
+      Caption = 'Pomodoro'
+      ClientHeight = 487
+      ClientWidth = 869
+      object BCPanel1: TBCPanel
+        Left = 8
+        Height = 224
+        Top = 8
+        Width = 248
+        Background.Color = clBtnFace
+        Background.ColorOpacity = 255
+        Background.Gradient1.StartColor = clWhite
+        Background.Gradient1.StartColorOpacity = 255
+        Background.Gradient1.DrawMode = dmSet
+        Background.Gradient1.EndColor = clBlack
+        Background.Gradient1.EndColorOpacity = 255
+        Background.Gradient1.ColorCorrection = True
+        Background.Gradient1.GradientType = gtLinear
+        Background.Gradient1.Point1XPercent = 0
+        Background.Gradient1.Point1YPercent = 0
+        Background.Gradient1.Point2XPercent = 0
+        Background.Gradient1.Point2YPercent = 100
+        Background.Gradient1.Sinus = False
+        Background.Gradient2.StartColor = clWhite
+        Background.Gradient2.StartColorOpacity = 255
+        Background.Gradient2.DrawMode = dmSet
+        Background.Gradient2.EndColor = clBlack
+        Background.Gradient2.EndColorOpacity = 255
+        Background.Gradient2.ColorCorrection = True
+        Background.Gradient2.GradientType = gtLinear
+        Background.Gradient2.Point1XPercent = 0
+        Background.Gradient2.Point1YPercent = 0
+        Background.Gradient2.Point2XPercent = 0
+        Background.Gradient2.Point2YPercent = 100
+        Background.Gradient2.Sinus = False
+        Background.Gradient1EndPercent = 35
+        Background.Style = bbsColor
+        BevelInner = bvNone
+        BevelOuter = bvRaised
+        BevelWidth = 1
+        Border.Color = clBlack
+        Border.ColorOpacity = 255
+        Border.LightColor = clWhite
+        Border.LightOpacity = 255
+        Border.LightWidth = 0
+        Border.Style = bboNone
+        Border.Width = 1
+        Caption = 'BCPanel1'
+        FontEx.Color = clDefault
+        FontEx.EndEllipsis = False
+        FontEx.FontQuality = fqFineAntialiasing
+        FontEx.Height = 0
+        FontEx.SingleLine = True
+        FontEx.Shadow = False
+        FontEx.ShadowColor = clBlack
+        FontEx.ShadowColorOpacity = 255
+        FontEx.ShadowRadius = 5
+        FontEx.ShadowOffsetX = 5
+        FontEx.ShadowOffsetY = 5
+        FontEx.Style = []
+        FontEx.TextAlignment = bcaCenter
+        FontEx.WordBreak = False
+        Rounding.RoundX = 1
+        Rounding.RoundY = 1
+        Rounding.RoundOptions = []
+        TabOrder = 0
+        object Button1: TButton
+          Left = 1
+          Height = 25
+          Top = 198
+          Width = 246
+          Align = alBottom
+          Caption = 'Start Timer'
+          OnClick = Button1Click
+          TabOrder = 0
+        end
+        object DTAnalogGauge1: TDTAnalogGauge
+          Left = 32
+          Height = 184
+          Top = 8
+          Width = 184
+          Position = 0
+          FaceSettings.FillStyle = fsGradient
+          FaceSettings.ColorFrame = 2302755
+          FaceSettings.ColorStart = 4144959
+          FaceSettings.ColorEnd = 6118749
+          ScaleSettings.TickColor = 8242399
+          ScaleSettings.TextColor = 13881484
+          ScaleSettings.TextSize = 15
+          ScaleSettings.TextFont = 'Calibri'
+          ScaleSettings.EnableMainTicks = True
+          ScaleSettings.EnableSubTicks = True
+          ScaleSettings.EnableScaleText = True
+          ScaleSettings.Maximum = 25
+          ScaleSettings.MainTickCount = 5
+          ScaleSettings.SubTickCount = 2
+          ScaleSettings.LengthMainTick = 15
+          ScaleSettings.LengthSubTick = 8
+          ScaleSettings.ThicknessMainTick = 3
+          ScaleSettings.ThicknessSubTick = 1
+          ScaleSettings.TextRadius = 0
+          ScaleSettings.Angle = 300
+          ScaleSettings.EnableRangeIndicator = True
+          NeedleSettings.NeedleColor = 5329407
+          NeedleSettings.NeedleLength = 80
+          NeedleSettings.CapRadius = 6
+          NeedleSettings.CapColor = 4144959
+          NeedleSettings.CapEdgeColor = 13425884
+        end
+      end
+      object Label1: TLabel
+        Left = 296
+        Height = 18
+        Top = 56
+        Width = 39
+        Caption = 'Label1'
+        ParentColor = False
+      end
+    end
+    object TabSheetReview: TTabSheet
+      Caption = 'Review'
+    end
+  end
+  object MainMenu1: TMainMenu
+    Left = 53
+    Top = 428
+  end
+  object PopupMenu1: TPopupMenu
+    Left = 120
+    Top = 428
+  end
+  object ActionList1: TActionList
+    Left = 192
+    Top = 428
+  end
+  object Timer1: TTimer
+    Enabled = False
+    OnTimer = Timer1Timer
+    OnStartTimer = Timer1StartTimer
+    OnStopTimer = Timer1StopTimer
+    Left = 264
+    Top = 428
+  end
+end
