@@ -58,6 +58,7 @@ begin
   DTAnalogGauge1.NeedleSettings.CapColor := clBlack;
   DTAnalogGauge1.Position:= 0;
   Button1.Caption:= 'Stop Timer';
+  Label1.Caption:= Format('%d minutes, %d seconds', [0, 0]);
   Seconds := 0;
 end;
 
@@ -66,12 +67,21 @@ begin
   DTAnalogGauge1.NeedleSettings.CapColor := clBlack;
   DTAnalogGauge1.Position:= 0;
   Button1.Caption:= 'Start Timer';
+  Label1.Caption:= Format('%d minutes, %d seconds', [0, 0]);
   Seconds := 0;
 end;
 
 procedure TMainForm.Timer1Timer(Sender: TObject);
+var
+  mins, secs : integer;
 begin
   Seconds := Seconds + 1;
+  mins := Seconds div 60;
+  secs := Seconds mod 60;
+  if mins = 1 then
+    Label1.Caption:= Format('%d minute, %d seconds', [mins, secs])
+  else
+    Label1.Caption:= Format('%d minutes, %d seconds', [mins, secs]);
   if Seconds mod 2 = 0 then DTAnalogGauge1.NeedleSettings.CapColor:= clRed
   else DTAnalogGauge1.NeedleSettings.CapColor := clBlack;
   if Seconds mod 60 = 0 then

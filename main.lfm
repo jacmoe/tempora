@@ -32,7 +32,7 @@ object MainForm: TMainForm
       ClientWidth = 869
       object BCPanel1: TBCPanel
         Left = 8
-        Height = 224
+        Height = 256
         Top = 8
         Width = 248
         Background.Color = clBtnFace
@@ -71,8 +71,9 @@ object MainForm: TMainForm
         Border.LightColor = clWhite
         Border.LightOpacity = 255
         Border.LightWidth = 0
-        Border.Style = bboNone
+        Border.Style = bboSolid
         Border.Width = 1
+        BorderBCStyle = bpsBorder
         Caption = 'BCPanel1'
         FontEx.Color = clDefault
         FontEx.EndEllipsis = False
@@ -95,7 +96,7 @@ object MainForm: TMainForm
         object Button1: TButton
           Left = 1
           Height = 25
-          Top = 198
+          Top = 230
           Width = 246
           Align = alBottom
           Caption = 'Start Timer'
@@ -135,14 +136,16 @@ object MainForm: TMainForm
           NeedleSettings.CapColor = 4144959
           NeedleSettings.CapEdgeColor = 13425884
         end
-      end
-      object Label1: TLabel
-        Left = 296
-        Height = 18
-        Top = 56
-        Width = 39
-        Caption = 'Label1'
-        ParentColor = False
+        object Label1: TLabel
+          Left = 1
+          Height = 18
+          Top = 212
+          Width = 246
+          Align = alBottom
+          Alignment = taCenter
+          Caption = '0 minutes, 0 seconds'
+          ParentColor = False
+        end
       end
     end
     object TabSheetReview: TTabSheet
