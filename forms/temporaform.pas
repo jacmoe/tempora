@@ -1,4 +1,4 @@
-unit main;
+unit TemporaForm;
 
 {$mode objfpc}{$H+}
 
@@ -25,6 +25,7 @@ type
     DBGrid1: TDBGrid;
     DTAnalogGauge1: TDTAnalogGauge;
     FileExit1: TFileExit;
+    ImageList1: TImageList;
     Label1: TLabel;
     MainMenu1: TMainMenu;
     MenuItemFile: TMenuItem;
