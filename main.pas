@@ -5,21 +5,30 @@ unit main;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, ComCtrls,
-  Menus, ActnList, StdCtrls, ExtCtrls, DTAnalogClock, BCPanel, BCButton,
-  DTAnalogGauge;
+  Classes, SysUtils, db, dbf, FileUtil, Forms, Controls, Graphics, Dialogs,
+  ComCtrls, Menus, ActnList, StdCtrls, ExtCtrls, DbCtrls, DBGrids, StdActns,
+  DTAnalogClock, BCPanel, BCButton, DTAnalogGauge;
+
+const
+  TemporaFilename = 'tempora.dbf';
 
 type
 
   { TMainForm }
 
   TMainForm = class(TForm)
+    Action1: TAction;
     ActionList1: TActionList;
     BCPanel1: TBCPanel;
     Button1: TButton;
+    DataSource1: TDataSource;
+    DBGrid1: TDBGrid;
     DTAnalogGauge1: TDTAnalogGauge;
+    FileExit1: TFileExit;
     Label1: TLabel;
     MainMenu1: TMainMenu;
+    MenuItemFile: TMenuItem;
+    MenuItemFileExit: TMenuItem;
     PageControl1: TPageControl;
     PopupMenu1: TPopupMenu;
     TabSheetCollect: TTabSheet;
@@ -29,10 +38,13 @@ type
     TabSheetReview: TTabSheet;
     Timer1: TTimer;
     procedure Button1Click(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+    procedure FormDestroy(Sender: TObject);
     procedure Timer1StartTimer(Sender: TObject);
     procedure Timer1StopTimer(Sender: TObject);
     procedure Timer1Timer(Sender: TObject);
   private
+    TemporaDbf: TDbf;
 
   public
 
@@ -51,6 +63,52 @@ implementation
 procedure TMainForm.Button1Click(Sender: TObject);
 begin
   Timer1.Enabled:= not Timer1.Enabled;
+end;
+
+procedure TMainForm.FormCreate(Sender: TObject);
+begin
+  TemporaDbf:=TDbf.Create(Self);
+  TemporaDbf.TableName := TemporaFilename;
+  if not FileExistsUTF8(TemporaFilename) then with TemporaDbf do begin
+    TableLevel:=7;
+    Exclusive:=True;
+    FieldDefs.Add('ID', ftAutoInc, 0, True);
+    FieldDefs.Add('CountryName', ftString, 25, True);
+    FieldDefs.Add('Capital', ftString, 25, True);
+    CreateTable;
+    Open;
+    Append;
+    // Fields[0].AsInteger:=100;  // Do not fill 'ID' because its type is ftAutoInc
+    fields[1].AsString:='France';
+    Fields[2].AsString:='Paris';
+    Post;
+    Append;
+    // Fields[0].AsInteger:=101;
+    fields[1].AsString:='Egypt';
+    Fields[2].AsString:='Cairo';
+    Post;
+    Append;
+    // Fields[0].AsInteger:=102;
+    fields[1].AsString:='Indonesia';
+    Fields[2].AsString:='Jakarta';
+    Post;
+    Append;
+    // Fields[0].AsInteger:=103;
+    fields[1].AsString:='Austria';
+    Fields[2].AsString:='Vienna';
+    Post;
+    AddIndex('idxByID', 'ID', [ixPrimary,ixUnique]);
+    AddIndex('idxByCountry', 'CountryName', [ixCaseInsensitive]);
+    AddIndex('idxByCapital', 'Capital', [ixCaseInsensitive]);
+  end;
+  TemporaDbf.Open;
+  DataSource1.DataSet := TemporaDbf;
+  DBGrid1.DataSource := DataSource1;
+end;
+
+procedure TMainForm.FormDestroy(Sender: TObject);
+begin
+  TemporaDbf.Close;
 end;
 
 procedure TMainForm.Timer1StartTimer(Sender: TObject);

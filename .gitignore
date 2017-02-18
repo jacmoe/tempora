@@ -11,3 +11,5 @@ forms/backup/*
 *.ini
 *.dbg
 *.log
+*.dbf
+*.mdx

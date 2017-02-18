@@ -4,21 +4,34 @@ object MainForm: TMainForm
   Top = 169
   Width = 879
   Caption = 'Tempora'
-  ClientHeight = 517
+  ClientHeight = 495
   ClientWidth = 879
   Menu = MainMenu1
+  OnCreate = FormCreate
+  OnDestroy = FormDestroy
   LCLVersion = '1.6.3.0'
   object PageControl1: TPageControl
     Left = 0
-    Height = 517
+    Height = 495
     Top = 0
     Width = 879
-    ActivePage = TabSheetPomodoro
+    ActivePage = TabSheetCollect
     Align = alClient
-    TabIndex = 3
+    TabIndex = 0
     TabOrder = 0
     object TabSheetCollect: TTabSheet
       Caption = 'Collect'
+      ClientHeight = 465
+      ClientWidth = 869
+      object DBGrid1: TDBGrid
+        Left = 8
+        Height = 352
+        Top = 8
+        Width = 672
+        Color = clWindow
+        Columns = <>
+        TabOrder = 0
+      end
     end
     object TabSheetOrganize: TTabSheet
       Caption = 'Organize'
@@ -28,7 +41,7 @@ object MainForm: TMainForm
     end
     object TabSheetPomodoro: TTabSheet
       Caption = 'Pomodoro'
-      ClientHeight = 487
+      ClientHeight = 465
       ClientWidth = 869
       object BCPanel1: TBCPanel
         Left = 8
@@ -155,6 +168,12 @@ object MainForm: TMainForm
   object MainMenu1: TMainMenu
     left = 53
     top = 428
+    object MenuItemFile: TMenuItem
+      Caption = 'File'
+      object MenuItemFileExit: TMenuItem
+        Action = FileExit1
+      end
+    end
   end
   object PopupMenu1: TPopupMenu
     left = 120
@@ -163,6 +182,14 @@ object MainForm: TMainForm
   object ActionList1: TActionList
     left = 192
     top = 428
+    object Action1: TAction
+      Caption = 'Action1'
+    end
+    object FileExit1: TFileExit
+      Category = 'File'
+      Caption = 'E&xit'
+      Hint = 'Exit'
+    end
   end
   object Timer1: TTimer
     Enabled = False
@@ -170,6 +197,10 @@ object MainForm: TMainForm
     OnStartTimer = Timer1StartTimer
     OnStopTimer = Timer1StopTimer
     left = 272
+    top = 428
+  end
+  object DataSource1: TDataSource
+    left = 352
     top = 428
   end
 end
