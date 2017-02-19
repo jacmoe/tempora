@@ -5,9 +5,9 @@ unit TemporaForm;
 interface
 
 uses
-  Classes, SysUtils, db, dbf, FileUtil, Forms, Controls, Graphics, Dialogs,
-  ComCtrls, Menus, ActnList, StdCtrls, ExtCtrls, DbCtrls, DBGrids, StdActns,
-  DTAnalogClock, BCPanel, BCButton, DTAnalogGauge;
+  Classes, SysUtils, db, dbf, eventlog, FileUtil, Forms, Controls, Graphics,
+  Dialogs, ComCtrls, Menus, ActnList, StdCtrls, ExtCtrls, DbCtrls, DBGrids,
+  StdActns, BCPanel, DTAnalogGauge, LazFileUtils, TemporaConfig, TemporaTypes;
 
 const
   TemporaFilename = 'tempora.dbf';
@@ -24,6 +24,7 @@ type
     DataSource1: TDataSource;
     DBGrid1: TDBGrid;
     DTAnalogGauge1: TDTAnalogGauge;
+    TemporaLog: TEventLog;
     FileExit1: TFileExit;
     ImageList1: TImageList;
     Label1: TLabel;
@@ -39,16 +40,25 @@ type
     TabSheetReview: TTabSheet;
     Timer1: TTimer;
     procedure Button1Click(Sender: TObject);
+    procedure FormCloseQuery(Sender: TObject; var CanClose: boolean);
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
+    procedure FormHide(Sender: TObject);
+    procedure FormShow(Sender: TObject);
     procedure Timer1StartTimer(Sender: TObject);
     procedure Timer1StopTimer(Sender: TObject);
     procedure Timer1Timer(Sender: TObject);
   private
     TemporaDbf: TDbf;
-
+    Config: TTemporaConfig;
+    FTemporaInstance: TTemporaCustomInstance;
+    initialized: boolean;
+    procedure SetTemporaInstance(const AValue: TTemporaCustomInstance);
+    procedure Init;
   public
-
+    { public declarations }
+    property TemporaInstance: TTemporaCustomInstance
+      read FTemporaInstance write SetTemporaInstance;
   end;
 
 var
@@ -61,9 +71,35 @@ implementation
 
 { TMainForm }
 
+procedure TMainForm.SetTemporaInstance(const AValue: TTemporaCustomInstance);
+begin
+  if (FTemporaInstance = nil) and (AValue <> nil) then
+  begin
+    FTemporaInstance := AValue;
+    Init;
+  end;
+end;
+
+procedure TMainForm.Init;
+begin
+  initialized := False;
+  Config := TemporaInstance.Config;
+
+  initialized := True;
+
+  TemporaLog.Log('Initialization complete.');
+
+  //UpdateWindowCaption;
+end;
+
 procedure TMainForm.Button1Click(Sender: TObject);
 begin
   Timer1.Enabled:= not Timer1.Enabled;
+end;
+
+procedure TMainForm.FormCloseQuery(Sender: TObject; var CanClose: boolean);
+begin
+  TemporaInstance.SaveMainWindowPosition;
 end;
 
 procedure TMainForm.FormCreate(Sender: TObject);
@@ -79,22 +115,18 @@ begin
     CreateTable;
     Open;
     Append;
-    // Fields[0].AsInteger:=100;  // Do not fill 'ID' because its type is ftAutoInc
     fields[1].AsString:='France';
     Fields[2].AsString:='Paris';
     Post;
     Append;
-    // Fields[0].AsInteger:=101;
     fields[1].AsString:='Egypt';
     Fields[2].AsString:='Cairo';
     Post;
     Append;
-    // Fields[0].AsInteger:=102;
     fields[1].AsString:='Indonesia';
     Fields[2].AsString:='Jakarta';
     Post;
     Append;
-    // Fields[0].AsInteger:=103;
     fields[1].AsString:='Austria';
     Fields[2].AsString:='Vienna';
     Post;
@@ -110,6 +142,16 @@ end;
 procedure TMainForm.FormDestroy(Sender: TObject);
 begin
   TemporaDbf.Close;
+end;
+
+procedure TMainForm.FormHide(Sender: TObject);
+begin
+  TemporaInstance.SaveMainWindowPosition;
+end;
+
+procedure TMainForm.FormShow(Sender: TObject);
+begin
+  TemporaInstance.RestoreMainWindowPosition;
 end;
 
 procedure TMainForm.Timer1StartTimer(Sender: TObject);

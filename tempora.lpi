@@ -35,24 +35,37 @@
         <PackageName Value="LCL"/>
       </Item4>
     </RequiredPackages>
-    <Units Count="3">
+    <Units Count="6">
       <Unit0>
         <Filename Value="tempora.lpr"/>
         <IsPartOfProject Value="True"/>
       </Unit0>
       <Unit1>
-        <Filename Value="forms/mainform.pas"/>
+        <Filename Value="forms/temporaform.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="MainForm"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="MainForm"/>
+        <UnitName Value="TemporaForm"/>
       </Unit1>
       <Unit2>
         <Filename Value="units/temporaconfig.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="TemporaConfig"/>
       </Unit2>
+      <Unit3>
+        <Filename Value="units/temporainstance.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="TemporaInstance"/>
+      </Unit3>
+      <Unit4>
+        <Filename Value="units/temporatypes.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit4>
+      <Unit5>
+        <Filename Value="units/temporautils.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit5>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
