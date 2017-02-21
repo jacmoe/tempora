@@ -13,3 +13,4 @@ forms/backup/*
 *.log
 *.dbf
 *.mdx
+*.exe

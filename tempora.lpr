@@ -8,7 +8,7 @@ uses
   {$ENDIF}{$ENDIF}
   Interfaces, // this includes the LCL widgetset
   Forms, dbflaz, TemporaForm, TemporaConfig, Inifiles,
-  TemporaTypes, TemporaInstance;
+  TemporaTypes, TemporaInstance, mORMot;
 
 {$R *.res}
 
